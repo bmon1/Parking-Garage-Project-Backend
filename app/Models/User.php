@@ -43,4 +43,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Relationship to retrieve vehicles owned by the user.
+     */
+    public function vehicles()
+    {
+        return $this->hasMany(Vehicle::class);
+    }
+
+    /**
+     * Relationship to retrieve the parking history of the user
+     */
+    public function history() {
+        return $this->hasMany(ParkingHistory::class);
+    }
 }

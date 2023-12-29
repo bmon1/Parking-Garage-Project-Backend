@@ -44,3 +44,6 @@ Route::get('/garages/{id}', [App\Http\Controllers\GarageController::class, 'show
 // Route::get('/garages/{id}/edit', [App\Http\Controllers\GarageController::class, 'edit']);
 // Route::get('/garages/{id}', [App\Http\Controllers\GarageController::class, 'update']);
 Route::delete('/garages/{id}', [App\Http\Controllers\GarageController::class, 'destroy']);
+
+// parking_history routes
+Route::get('/parking-history', [App\Http\Controllers\ParkingHistoryController::class, 'index']);
