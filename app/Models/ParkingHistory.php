@@ -19,5 +19,5 @@ class ParkingHistory extends Model
     protected $fillable = [];
 
     // If you don't want timestamps (created_at, updated_at) for this model
-    public $timestamps = false;
+    public $timestamps = true;
 }
