@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class VehicleController extends Controller
 {
@@ -22,19 +26,39 @@ class VehicleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $user = Auth::user();
+            $validatedData = $request->validate([
+                'year' => 'required|integer',
+                'make' => 'required|string|max:255',
+                'model' => 'required|string|max:255',
+                'color' => 'required|string|max:255',
+                'license_plate' => 'required|string|max:255',
+            ]);
+
+            $validatedData['user_id'] = $user->id;
+            $validatedData['currently_parked'] = false;
+
+            $vehicle = Vehicle::create($validatedData);
+
+            return response()->json(['message' => 'Vehicle created successfully', 'data' => $vehicle], 201);
+        } catch (ValidationException $e) {
+
+            return response()->json(['message' => 'Validation failed', 'errors' => $e->errors()], $e->status);
+        } catch (ModelNotFoundException $e) {
+
+            return response()->json(['message' => 'User not found'], 404);
+        } catch (QueryException $e) {
+
+            return response()->json(['message' => 'Failed to create the vehicle', 'error' => $e->getMessage()], 500);
+        } catch (\Exception $e) {
+
+            return response()->json(['message' => 'An error occurred', 'error' => $e->errors()], $e->status);
+        }
     }
 
     /**
@@ -45,14 +69,6 @@ class VehicleController extends Controller
         $vehicle = Vehicle::findOrFail($id);
 
         return response()->json(['vehicle' => $vehicle]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
     }
 
     /**
@@ -72,6 +88,6 @@ class VehicleController extends Controller
 
         $vehicle->delete();
 
-        return response()->json(['message' => 'Vehicle soft deleted successfully']);
+        return response()->json(['message' => 'Vehicle deleted successfully']);
     }
 }

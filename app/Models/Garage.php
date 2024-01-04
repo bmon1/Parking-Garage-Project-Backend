@@ -10,4 +10,6 @@ class Garage extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    public $timestamps = true;
 }

@@ -16,8 +16,8 @@ class Vehicle extends Model
     protected $primaryKey = 'id';
 
     // Define the fillable attributes for mass assignment
-    protected $fillable = ['make', 'model', 'year'];
+    protected $fillable = ['user_id', 'year', 'make', 'model', 'color', 'license_plate', 'currently_parked'];
 
     // If you don't want timestamps (created_at, updated_at) for this model
-    public $timestamps = false;
+    public $timestamps = true;
 }
