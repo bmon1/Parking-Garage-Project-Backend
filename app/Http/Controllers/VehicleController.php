@@ -48,7 +48,7 @@ class VehicleController extends Controller
             return response()->json(['message' => 'Vehicle created successfully', 'data' => $vehicle], 201);
         } catch (ValidationException $e) {
 
-            return response()->json(['message' => 'Validation failed', 'errors' => $e->errors()], $e->status);
+            return response()->json(['message' => 'Validation failed', 'errors' => $e->errors()], 422);
         } catch (ModelNotFoundException $e) {
 
             return response()->json(['message' => 'User not found'], 404);
@@ -57,7 +57,7 @@ class VehicleController extends Controller
             return response()->json(['message' => 'Failed to create the vehicle', 'error' => $e->getMessage()], 500);
         } catch (\Exception $e) {
 
-            return response()->json(['message' => 'An error occurred', 'error' => $e->errors()], $e->status);
+            return response()->json(['message' => 'An error occurred', 'error' => $e->errors()], 500);
         }
     }
 
