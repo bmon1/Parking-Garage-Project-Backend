@@ -17,10 +17,6 @@ return new class extends Migration
             $table->foreign('vehicle_id')->references('id')->on('vehicles');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('user_id')->on('vehicles');
-            $table->year('year');
-            $table->string('make');
-            $table->string('model');
-            $table->string('color');
             $table->unsignedBigInteger('garage');
             $table->foreign('garage')->references('id')->on('garages');
             $table->timestamps();

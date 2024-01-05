@@ -50,6 +50,7 @@ Route::get('web/vehicles/{id}', [App\Http\Controllers\VehicleController::class, 
 // Route::get('/vehicles/{id}/edit', [App\Http\Controllers\VehicleController::class, 'edit']);
 // Route::get('/vehicles/{id}', [App\Http\Controllers\VehicleController::class, 'update']);
 Route::delete('web/vehicles/{id}', [App\Http\Controllers\VehicleController::class, 'destroy']);
+Route::post('/web/vehicles/{vehicleId}/park/{garageId}', [App\Http\Controllers\VehicleController::class, 'parkVehicle']);
 
 // garage routes
 Route::get('web/garages', [App\Http\Controllers\GarageController::class, 'index']);
