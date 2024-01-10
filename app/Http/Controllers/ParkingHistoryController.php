@@ -14,18 +14,19 @@ class ParkingHistoryController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $history = $user->history;
+        try {
+            $user = Auth::user();
+            $history = $user->history;
 
-        return response()->json(['history' => $history]);
-    }
+            return response()->json(['history' => $history]);
+        } catch (ModelNotFoundException $e) {
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+            return response()->json(['error' => 'Users not found'], 404);
+        } catch (\Exception $e) {
+
+            return response()->json(['message' => 'An error occurred', 'error' => $e], 500);
+        }
+        
     }
 
     /**

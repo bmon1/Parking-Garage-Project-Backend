@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
+        Schema::table('parking_history', function (Blueprint $table) {
+            $table->timestamp('entered_garage')->nullable();
+            $table->timestamp('exited_garage')->nullable();
         });
     }
 
@@ -21,8 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('user_id');
+        Schema::table('parking_history', function (Blueprint $table) {
+            $table->dropColumn('entered_garage');
+            $table->dropColumn('exited_garage');
         });
     }
 };

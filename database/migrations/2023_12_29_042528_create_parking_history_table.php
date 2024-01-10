@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('vehicle_id')->references('id')->on('vehicles');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('user_id')->on('vehicles');
-            $table->unsignedBigInteger('garage');
+            $table->unsignedBigInteger('garage')->nullable();
             $table->foreign('garage')->references('id')->on('garages');
             $table->timestamps();
         });

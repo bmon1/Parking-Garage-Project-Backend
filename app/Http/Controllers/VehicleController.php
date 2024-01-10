@@ -151,8 +151,6 @@ class VehicleController extends Controller
     public function parkVehicle(Request $request, string $vehicleId, string $garageId)
     {
             try{
-                Log::info($vehicleId);
-                Log::info($garageId);
 
                 DB::beginTransaction();
 
@@ -184,5 +182,44 @@ class VehicleController extends Controller
                 DB::rollBack();
                 return response()->json(['message' => 'An error occurred', 'error' => $e], 500);
             }
+    }
+
+    /**
+     * Park the specified vehicle
+     */
+    public function removeVehicleFromGarage(Request $request, string $vehicleId, string $garageId)
+    {
+        try{
+
+            DB::beginTransaction();
+
+            $vehicle = Vehicle::findOrFail($vehicleId);
+            $garage = Garage::findOrFail($garageId);
+
+            $vehicle->currently_parked = 0;
+            $vehicle->parked_in_garage = null;
+            $vehicle->entered_garage = null;
+            $vehicle->save();
+
+            $garage->increment('open_parking_spots');
+            $garage->save();
+
+            $parkingHistory = new ParkingHistory();
+
+            $parkingHistory->vehicle_id = $vehicle->id;
+            $parkingHistory->user_id = $vehicle->user_id;
+            $parkingHistory->garage = $garageId;
+            $parkingHistory->save();
+
+            DB::commit();
+
+            return response()->json(['message' => 'Vehicle removed from garage successfully']);
+        } catch (ModelNotFoundException $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'Vehicle or garage not found'], 404);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'An error occurred', 'error' => $e], 500);
+        }
     }
 }

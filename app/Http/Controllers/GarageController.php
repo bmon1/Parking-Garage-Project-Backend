@@ -13,9 +13,17 @@ class GarageController extends Controller
      */
     public function index()
     {
-        $garages = Garage::all();
+        try {
+            $garages = Garage::all();
 
-        return response()->json(['garages' => $garages]);
+            return response()->json(['garages' => $garages]);
+        } catch (ModelNotFoundException $e) {
+
+            return response()->json(['error' => 'Garages not found'], 404);
+        } catch (\Exception $e) {
+
+            return response()->json(['message' => 'An error occurred', 'error' => $e], 500);
+        }
     }
 
     /**

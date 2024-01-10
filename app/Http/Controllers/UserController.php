@@ -15,11 +15,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        // Retrieve all users from the database
-        $users = User::all();
+        try {
+            $users = User::all();
 
-        // Return a view or JSON response with the list of users
-        return response()->json(['users' => $users]);
+            return response()->json(['users' => $users]);
+        } catch (ModelNotFoundException $e) {
+
+            return response()->json(['error' => 'Users not found'], 404);
+        } catch (\Exception $e) {
+
+            return response()->json(['message' => 'An error occurred', 'error' => $e], 500);
+        }
+
     }
 
     /**
@@ -61,7 +68,24 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $user = User::findOrFail($id);
+            $validatedData = $request->validate([
+                'name' => 'sometimes|string|max:255',
+                'email' => 'sometimes|string|max:255',
+            ]);
+
+            $user->update($validatedData);
+
+            return response()->json(['message' => 'User updated successfully', 'data' => $user]);
+        } catch(ModelNotFoundException $e) {
+
+            return response()->json(['Error' => 'User not found'], 404);
+        } catch (\Exception $e) {
+
+            return response()->json(['message' => 'An error occurred', 'error' => $e], 500);
+        }
+        
     }
 
     /**
