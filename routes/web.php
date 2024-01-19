@@ -35,11 +35,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 Route::get('web/users', [App\Http\Controllers\UserController::class, 'index']);
 // Route::get('/users', [App\Http\Controllers\UserController::class, 'store']);
 Route::get('web/users/{id}', [App\Http\Controllers\UserController::class, 'show']);
 // Route::get('/users/{id}/edit', [App\Http\Controllers\UserController::class, 'edit']);
-// Route::get('/users/{id}', [App\Http\Controllers\UserController::class, 'update']);
+Route::patch('web/users/{id}', [App\Http\Controllers\UserController::class, 'update']);
 Route::delete('web/users/{id}', [App\Http\Controllers\UserController::class, 'destroy']);
 
 
@@ -47,8 +48,7 @@ Route::delete('web/users/{id}', [App\Http\Controllers\UserController::class, 'de
 Route::get('web/vehicles', [App\Http\Controllers\VehicleController::class, 'index']);
 Route::post('web/vehicles', [App\Http\Controllers\VehicleController::class, 'store']);
 Route::get('web/vehicles/{id}', [App\Http\Controllers\VehicleController::class, 'show']);
-// Route::get('/vehicles/{id}/edit', [App\Http\Controllers\VehicleController::class, 'edit']);
-// Route::get('/vehicles/{id}', [App\Http\Controllers\VehicleController::class, 'update']);
+Route::patch('web/vehicles/{id}', [App\Http\Controllers\VehicleController::class, 'update']);
 Route::delete('web/vehicles/{id}', [App\Http\Controllers\VehicleController::class, 'destroy']);
 Route::post('/web/vehicles/{vehicleId}/park/{garageId}', [App\Http\Controllers\VehicleController::class, 'parkVehicle']);
 Route::post('/web/vehicles/{vehicleId}/removeVehicleFromGarage/{garageId}', [App\Http\Controllers\VehicleController::class, 'removeVehicleFromGarage']);

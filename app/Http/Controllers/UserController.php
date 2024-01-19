@@ -68,13 +68,15 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // KAN-1
         try {
             $user = User::findOrFail($id);
             $validatedData = $request->validate([
-                'name' => 'sometimes|string|max:255',
-                'email' => 'sometimes|string|max:255',
+                'name' => 'sometimes|nullable|string|max:255',
+                'email' => 'sometimes|nullable|string|max:255',
             ]);
 
+            $validatedData = array_filter($validatedData);
             $user->update($validatedData);
 
             return response()->json(['message' => 'User updated successfully', 'data' => $user]);
