@@ -47,3 +47,9 @@
 - While sail containers are running, install dependencies "./vendor/bin/sail composer install"
 - Run data migrations "./vendor/bin/sail artisan migrate"
 - Laravel server should be running on http://localhost:80
+
+
+## Current Jira tickets affecting the project backend
+- Fix auth / csrf token issues
+- Create a base url env variable used for axios calls to backend
+- Add photo column to appropriate tables
