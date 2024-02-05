@@ -8,10 +8,19 @@
 - Install Windows Subsystem for Linux 2 **[WSL2](https://learn.microsoft.com/en-us/windows/wsl/install)**
 - Configure WSL2 to work with docker **[Docker WSL2 configuration](https://docs.docker.com/desktop/wsl/)**
 - Launch WSL2 with "wsl" command in PowerShell terminal
-- Clone this repo "git clone https://github.com/bmon1/Parking-Garage-Project-Backend"
+- Clone this repo git clone 
+```sh
+https://github.com/bmon1/Parking-Garage-Project-Backend
+```
 - cd Parking-Garage-Project-Backend
-- Install laravel sail "composer require laravel/sail --dev"
-- Publish sail config files "php artisan sail:install"
+- Install laravel sail 
+```sh
+composer require laravel/sail --dev
+```
+- Publish sail config files
+```sh
+php artisan sail:install
+```
 - Update .env file with these attributes
 ```
   DB_CONNECTION=mysql
@@ -21,19 +30,41 @@
   DB_USERNAME=sail
   DB_PASSWORD=password
 ```
-- Run sail containers in docker from WSL2 terminal inside project directory "./vendor/bin/sail up" (to stop Sail from running use "./vendor/bin/sail down"
-- While sail containers are running, install dependencies "./vendor/bin/sail composer install"
-- Run data migrations "./vendor/bin/sail artisan migrate"
+- Run sail containers in docker from WSL2 terminal inside project directory 
+```sh
+./vendor/bin/sail up
+```
+- To stop Sail from running use 
+```sh
+./vendor/bin/sail down
+```
+- While sail containers are running, install dependencies
+```sh
+./vendor/bin/sail composer install
+```
+- Run data migrations 
+```sh
+./vendor/bin/sail artisan migrate
+```
 - Laravel server should be running on http://localhost:80
 
 <br>
 <br>
 
 ## MacOS
-- Clone this repo "git clone https://github.com/bmon1/Parking-Garage-Project-Backend"
+- Clone this repo git clone 
+```sh
+https://github.com/bmon1/Parking-Garage-Project-Backend
+```
 - cd Parking-Garage-Project-Backend
-- Install laravel sail "composer require laravel/sail --dev"
-- Publish sail config files "php artisan sail:install"
+- Install laravel sail 
+```sh
+composer require laravel/sail --dev
+```
+- Publish sail config files
+```sh
+php artisan sail:install
+```
 - Update .env file with these attributes
 ```
   DB_CONNECTION=mysql
@@ -43,11 +74,26 @@
   DB_USERNAME=sail
   DB_PASSWORD=password
 ```
-- Run sail containers in docker from WSL2 terminal inside project directory "./vendor/bin/sail up" (to stop Sail from running use "./vendor/bin/sail down"
-- While sail containers are running, install dependencies "./vendor/bin/sail composer install"
-- Run data migrations "./vendor/bin/sail artisan migrate"
+- Run sail containers in docker from WSL2 terminal inside project directory 
+```sh
+./vendor/bin/sail up
+```
+To stop Sail from running use 
+```sh
+./vendor/bin/sail down
+```
+- While sail containers are running, install dependencies
+```sh
+./vendor/bin/sail composer install
+```
+- Run data migrations 
+```sh
+./vendor/bin/sail artisan migrate
+```
 - Laravel server should be running on http://localhost:80
 
+<br>
+<br>
 
 ## Current Jira tickets affecting the project backend
 - Fix auth / csrf token issues
